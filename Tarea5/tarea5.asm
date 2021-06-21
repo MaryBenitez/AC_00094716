@@ -2,27 +2,35 @@ org 100h
 
     section .text
 
-    XOR AX, AX
-    XOR BX, BX
-    XOR DX, DX
-    XOR SI, SI
+    xor SI, SI
+    xor DX, DX
+
+    MOV SI, 0
+    MOV DI, 0d
 
     call texto
 
+    ;Primer nombre
     call cursor_pn
     call p_nombre
+    call buffer ;Espera tecla
 
+    ;Segundo nombre
     call cursor_sn
     call s_nombre
+    call buffer ;Espera tecla
 
+    ;Primer apellido
     call cursor_pa
     call p_apellido
+    call buffer ;Espera tecla
 
+    ;Segundo apellido
     call cursor_sa
     call s_apellido
+    call buffer ;Espera tecla
 
-    call buffer
-    call exit
+    call exit 
 
     texto:
         MOV AH, 00h
@@ -32,7 +40,7 @@ org 100h
     
     cursor_pn:
         MOV AH, 02h
-        MOV DH, 4
+        MOV DH, 10
         MOV DL, 20
         MOV BH, 0h
         INT 10h
@@ -46,7 +54,7 @@ org 100h
     
     cursor_sn:
         MOV AH, 02h
-        MOV DH, 6
+        MOV DH, 12
         MOV DL, 20
         MOV BH, 0h
         INT 10h
@@ -60,7 +68,7 @@ org 100h
 
     cursor_pa:
         MOV AH, 02h
-        MOV DH, 8
+        MOV DH, 14
         MOV DL, 20
         MOV BH, 0h
         INT 10h
@@ -74,7 +82,7 @@ org 100h
 
     cursor_sa:
         MOV AH, 02h
-        MOV DH, 10
+        MOV DH, 16
         MOV DL, 20
         MOV BH, 0h
         INT 10h
